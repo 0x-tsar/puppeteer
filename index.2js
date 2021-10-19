@@ -1,0 +1,59 @@
+require("dotenv").config();
+const puppeteer = require("puppeteer");
+const fs = require("fs");
+
+(async () => {
+  console.log(process.env.ACCOUNT);
+  const browser = await puppeteer.launch({ headless: false });
+  const page = await browser.newPage();
+  await page.setViewport({ width: 1366, height: 768 });
+  await page.goto("https://instagram.com", { waitUntil: "networkidle2" });
+  // await page.screenshot({ path: "rocketseat.png" });
+
+  //all of this function will be executed inside the browser
+  // const components = await page.evaluate(() => {
+  //   // const nodeList = document.querySelector("#loginForm");
+  //   const inputs = document.getElementsByClassName("_2hvTZ pexuQ zyHYP");
+  //   // await page.type('input[name=search]', 'Adenosine triphosphate');
+  //   // await page.keyboard.type("something here");
+  //   // await page.waitForTimeout(10000);
+  //   console.log(inputs);
+  // });
+
+  const form = await page.waitForSelector(".loginForm");
+  console.log("-----");
+  console.log(form);
+  // await page.waitForSelector("input[name=search]");
+  // await page.keyboard.type("input[name=search]", "Adenosine triphosphate");
+  // await page.$eval(
+  //   "input[name=search]",
+  //   (el) => (el.value = "Adenosine triphosphate")
+  // );
+
+  await page.waitForTimeout(1000 * 60);
+
+  await browser.close();
+
+  // await page.click('input[type="submit"]');
+  // await page.waitForSelector("#mw-content-text");
+  // const text = await page.evaluate(() => {
+  //   const anchor = document.querySelector("#mw-content-text");
+  //   return anchor.textContent;
+  // });
+  // console.log(text);
+
+  // await page.waitForTimeout(1000 * 60 * 5);
+  // await browser.close();
+})();
+
+// fs.writeFile("files.json", JSON.stringify(components, null, 2), (err) => {
+//   if (err) throw new Error("something went wrong");
+//   console.log("well done!");
+// });
+
+// const imgArray = [...nodeList];
+// const imgList = imgArray.map(({ src }) => ({ src }));
+// //is the same as
+// const imgList = imgArray.map((img) => (item) => {
+//   return item.src;
+// });
